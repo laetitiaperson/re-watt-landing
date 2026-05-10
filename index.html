@@ -1,0 +1,433 @@
+<!doctype html>
+<!--
+  ============================================================
+  Re-Watt — Landing page (one-pager)
+  ============================================================
+  À PERSONNALISER avant mise en ligne :
+   1. Logo            → chercher le marqueur  LOGO_PLACEHOLDER
+   2. Baseline        → chercher le marqueur  BASELINE_PLACEHOLDER
+   3. Email contact   → variable JS  CONTACT_EMAIL  (en bas du fichier)
+   4. Couleurs        → variables CSS dans :root
+   5. Image OG        → balise meta property="og:image" (placeholder)
+   6. Favicon         → balise link rel="icon" (placeholder)
+  ============================================================
+-->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Re-Watt — Redonnez vie à vos batteries</title>
+  <meta name="description" content="Re-Watt prolonge la durée de vie des batteries électriques amovibles. 80% des batteries envoyées au recyclage sont en réalité réparables.">
+  <meta name="theme-color" content="#2D7A4F">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Re-Watt — Redonnez vie à vos batteries">
+  <meta property="og:description" content="Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.">
+  <meta property="og:image" content="og-image.png"><!-- TODO : remplacer par une vraie image 1200×630 -->
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon (placeholder — remplacer par favicon.ico) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+
+  <!-- Police -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       Variables — tokens design (modifiable en un endroit)
+       ============================================================ */
+    :root {
+      --color-primary: #2D7A4F;
+      --color-primary-dark: #225e3c;
+      --color-accent: #A8D5BA;
+      --color-bg: #FAFAF7;
+      --color-text: #1A1A1A;
+      --color-text-muted: #5C5C5C;
+      --color-border: #E5E5E5;
+      --color-card-bg: #FFFFFF;
+
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --radius: 12px;
+      --shadow-soft: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.08);
+
+      --max-w: 960px;
+      --pad-x: 24px;
+    }
+
+    /* ============================================================
+       Reset léger
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { color: var(--color-primary-dark); }
+
+    /* Focus visible accessible (clavier) */
+    :focus-visible {
+      outline: 3px solid var(--color-primary);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Skip link — accessibilité clavier */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--color-text);
+      color: #fff;
+      padding: 12px 16px;
+      z-index: 100;
+    }
+    .skip-link:focus { left: 16px; top: 16px; }
+
+    /* ============================================================
+       Layout
+       ============================================================ */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding-left: var(--pad-x);
+      padding-right: var(--pad-x);
+    }
+
+    /* ============================================================
+       Hero
+       ============================================================ */
+    .hero {
+      padding: 56px 0 40px;
+      text-align: center;
+    }
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 16px;
+      min-height: 80px;
+    }
+    .logo img {
+      max-height: 120px;
+      width: auto;
+    }
+    /* Style appliqué uniquement si on garde le texte de fallback */
+    .logo-fallback {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--color-primary);
+    }
+    .baseline {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      margin: 0 0 48px;
+      letter-spacing: 0.01em;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 20px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 .highlight {
+      color: var(--color-primary);
+    }
+    .hero .lead {
+      font-size: clamp(17px, 2.2vw, 20px);
+      color: var(--color-text-muted);
+      max-width: 640px;
+      margin: 0 auto 32px;
+    }
+    .construction {
+      display: inline-block;
+      padding: 10px 18px;
+      background: var(--color-accent);
+      color: var(--color-primary-dark);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       Section profils
+       ============================================================ */
+    .profiles {
+      padding: 64px 0 80px;
+    }
+    .profiles h2 {
+      font-size: clamp(24px, 3.5vw, 32px);
+      font-weight: 700;
+      text-align: center;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+    .profiles .section-intro {
+      text-align: center;
+      color: var(--color-text-muted);
+      margin: 0 auto 48px;
+      max-width: 560px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 600px) {
+      .profile-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (min-width: 960px) {
+      .profile-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 28px 24px;
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      text-decoration: none;
+      color: var(--color-text);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+    .profile-card:hover,
+    .profile-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-accent);
+      color: var(--color-text);
+    }
+    .profile-card .icon {
+      width: 36px;
+      height: 36px;
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+    .profile-card h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .profile-card p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--color-text-muted);
+      line-height: 1.55;
+    }
+    .profile-card .cta {
+      margin-top: auto;
+      padding-top: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .profile-card:hover .cta { color: var(--color-primary-dark); }
+    .profile-card .cta::after {
+      content: '→';
+      transition: transform 180ms ease;
+    }
+    .profile-card:hover .cta::after { transform: translateX(3px); }
+
+    /* ============================================================
+       Footer
+       ============================================================ */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 32px 0;
+      text-align: center;
+      font-size: 14px;
+      color: var(--color-text-muted);
+    }
+    footer p { margin: 4px 0; }
+    footer a { color: var(--color-text-muted); }
+    footer a:hover { color: var(--color-primary); }
+
+    /* ============================================================
+       Préférence mouvement réduit
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Aller au contenu</a>
+
+  <header class="hero" role="banner">
+    <div class="container">
+
+      <div class="logo" aria-label="Logo Re-Watt">
+        <!-- LOGO_PLACEHOLDER -->
+        <!-- Remplacer le <span> ci-dessous par : <img src="logo.png" alt="Re-Watt"> -->
+        <span class="logo-fallback">Re-Watt</span>
+      </div>
+
+      <p class="baseline">
+        <!-- BASELINE_PLACEHOLDER -->
+        Redonnez vie à vos batteries
+      </p>
+
+      <h1>
+        <span class="highlight">80&nbsp;%</span> des batteries envoyées au recyclage sont en réalité réparables.
+      </h1>
+
+      <p class="lead">
+        Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
+      </p>
+
+      <p class="construction" role="note">
+        Site en construction — Pour en savoir plus, contactez-nous.
+      </p>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="profiles" aria-labelledby="profiles-title">
+      <div class="container">
+
+        <h2 id="profiles-title">Vous êtes…</h2>
+        <p class="section-intro">Choisissez votre profil pour nous contacter directement.</p>
+
+        <div class="profile-grid">
+
+          <!-- Carte : Particulier -->
+          <a class="profile-card"
+             href="#"
+             data-subject="Re-Watt — Demande Particulier"
+             data-body="Bonjour,%0A%0AJe souhaite en savoir plus sur vos services pour particuliers. Ma demande concerne : ...%0A%0AMerci,">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+            </svg>
+            <h3>Particulier</h3>
+            <p>Vous voulez faire diagnostiquer ou réparer la batterie de votre vélo, scooter, trottinette ou outil portatif.</p>
+            <span class="cta">Nous contacter</span>
+          </a>
+
+          <!-- Carte : Professionnel -->
+          <a class="profile-card"
+             href="#"
+             data-subject="Re-Watt — Demande Professionnel"
+             data-body="Bonjour,%0A%0AJe représente la structure ... et je souhaite échanger sur ...%0A%0AMerci,">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l7-4 7 4v14"/>
+              <path d="M9 9h2"/><path d="M13 9h2"/>
+              <path d="M9 13h2"/><path d="M13 13h2"/>
+              <path d="M9 17h2"/><path d="M13 17h2"/>
+            </svg>
+            <h3>Professionnel</h3>
+            <p>Vous gérez une flotte, un atelier ou une activité qui dépend de batteries amovibles.</p>
+            <span class="cta">Nous contacter</span>
+          </a>
+
+          <!-- Carte : Partenaire -->
+          <a class="profile-card"
+             href="#"
+             data-subject="Re-Watt — Demande Partenaire"
+             data-body="Bonjour,%0A%0AJe suis intéressé(e) pour rejoindre votre réseau d'ateliers de réparation/reconditionnement. ...%0A%0AMerci,">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.7 6.3a4 4 0 0 1 5.6 5.7l-7.3 7.3a4 4 0 0 1-5.7 0l-3.3-3.3a4 4 0 0 1 0-5.7l7.3-7.3a4 4 0 0 1 5.7 0"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <h3>Partenaire</h3>
+            <p>Vous souhaitez rejoindre notre réseau d'ateliers de réparation et de reconditionnement.</p>
+            <span class="cta">Nous contacter</span>
+          </a>
+
+          <!-- Carte : Écosystème -->
+          <a class="profile-card"
+             href="#"
+             data-subject="Re-Watt — Demande Écosystème"
+             data-body="Bonjour,%0A%0AJe suis (investisseur / journaliste / institutionnel) et je souhaite ...%0A%0AMerci,">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <h3>Écosystème</h3>
+            <p>Vous êtes investisseur, institutionnel, journaliste ou acteur de la transition écologique.</p>
+            <span class="cta">Nous contacter</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p><strong>Re-Watt</strong> — Société à mission</p>
+      <p><a id="footer-email" href="#">contact@re-watt.fr</a></p>
+      <p>© 2026 Re-Watt</p>
+      <!-- TODO : ajouter liens réseaux sociaux ici (LinkedIn, Instagram…) le moment venu -->
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+       Configuration — modifier ici l'email destinataire
+       ============================================================ */
+    const CONTACT_EMAIL = 'contact@re-watt.fr';
+
+    /* ============================================================
+       Construction des liens mailto à partir des data-attributes
+       (subject + body sont déjà encodés URI dans le HTML pour
+        garantir le rendu correct des accents et retours à la ligne)
+       ============================================================ */
+    document.querySelectorAll('.profile-card[data-subject]').forEach(card => {
+      const subject = encodeURIComponent(card.dataset.subject);
+      // Le body est pré-encodé (espaces->%20, \n->%0A) — on le passe brut
+      const body = card.dataset.body;
+      card.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    });
+
+    /* Lien email du footer */
+    const footerEmail = document.getElementById('footer-email');
+    if (footerEmail) {
+      footerEmail.href = `mailto:${CONTACT_EMAIL}`;
+      footerEmail.textContent = CONTACT_EMAIL;
+    }
+  </script>
+
+</body>
+</html>
