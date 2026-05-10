@@ -168,9 +168,15 @@
     .hero {
       padding: 0 0 40px;
       text-align: center;
+      /* Marge négative légère : remonte les mentions sous le logo
+         (le PNG du logo contient un peu de blanc en bas) */
+      margin-top: -8px;
     }
     @media (min-width: 600px) {
-      .hero { padding: 0 0 56px; }
+      .hero {
+        padding: 0 0 56px;
+        margin-top: -24px;
+      }
     }
     .hero-text {
       max-width: 880px;
