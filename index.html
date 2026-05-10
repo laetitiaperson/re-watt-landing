@@ -219,6 +219,7 @@
       pointer-events: none;
     }
     .stat-banner .stat-inner {
+      width: 100%;
       display: flex;
       align-items: center;
       gap: 24px;
@@ -248,9 +249,6 @@
     }
     .stat-banner .desc strong {
       font-weight: 900;
-      font-size: 1.15em;
-      display: block;
-      margin-top: 4px;
     }
 
     /* Mention "site en construction" valorisée dans le bandeau bleu */
@@ -259,7 +257,7 @@
       align-items: center;
       gap: 12px;
       margin-top: 36px;
-      padding: 14px 22px 14px 18px;
+      padding: 14px 22px;
       background: #fff;
       color: var(--color-blue-dark);
       border-radius: 999px;
@@ -277,13 +275,6 @@
       box-shadow: 0 10px 24px rgba(0,0,0,0.16);
       color: var(--color-blue-dark);
     }
-    .stat-banner .construction-cta .dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--color-green);
-      flex-shrink: 0;
-      animation: pulse 1.8s ease-in-out infinite;
-    }
     .stat-banner .construction-cta .arrow {
       transition: transform 200ms ease;
     }
@@ -292,14 +283,11 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.55; transform: scale(0.7); }
     }
-    /* Wrapper qui aligne le bandeau et la pastille en colonne */
+    /* Wrapper qui aligne le bandeau et la pastille en colonne (pastille centrée) */
     .stat-banner .stat-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-    }
-    @media (min-width: 600px) {
-      .stat-banner .stat-wrap { align-items: flex-start; }
     }
 
     /* ============================================================
@@ -543,7 +531,6 @@
         </div>
 
         <a href="#main" class="construction-cta">
-          <span class="dot" aria-hidden="true"></span>
           <span>Site en construction — <strong>Pour en savoir plus, contactez-nous</strong></span>
           <span class="arrow" aria-hidden="true">↑</span>
         </a>
