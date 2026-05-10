@@ -134,17 +134,16 @@
        Site header (barre du haut, logo aligné à gauche)
        ============================================================ */
     .site-header {
-      padding: 12px 0 4px;
+      padding: 8px 0 0;
     }
-    /* Le header sort un peu de la grille principale pour coller davantage
-       au bord gauche que le reste du contenu */
+    /* Le header occupe toute la largeur et se colle au bord gauche */
     .site-header .container {
       max-width: none;
-      padding-left: 12px;
+      padding-left: 4px;
       padding-right: 12px;
     }
     @media (min-width: 600px) {
-      .site-header .container { padding-left: 24px; padding-right: 24px; }
+      .site-header .container { padding-left: 8px; padding-right: 24px; }
     }
     .logo {
       display: flex;
@@ -152,11 +151,11 @@
       align-items: center;
     }
     .logo img {
-      height: 120px;
+      height: 160px;
       width: auto;
     }
     @media (min-width: 600px) {
-      .logo img { height: 200px; }
+      .logo img { height: 280px; }
     }
 
     /* ============================================================
