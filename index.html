@@ -163,87 +163,36 @@
     }
 
     /* ============================================================
-       Hero — bloc stat dominant à la slide 4 du deck
+       Hero — accroche dominante en haut + bandeau stat 80%
        ============================================================ */
     .hero {
-      padding: 16px 0 56px;
+      padding: 16px 0 0;
+      text-align: center;
     }
     @media (min-width: 600px) {
-      .hero { padding: 24px 0 88px; }
+      .hero { padding: 32px 0 0; }
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
-      align-items: center;
-    }
-    @media (min-width: 860px) {
-      .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; }
-    }
-
-    /* Bloc stat — gros 80% blanc sur fond bleu→vert dégradé */
-    .stat-block {
-      position: relative;
-      background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-green) 100%);
-      color: #fff;
-      padding: 40px 32px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(43,130,201,0.18);
+    .hero-text {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 0 56px;
     }
     @media (min-width: 600px) {
-      .stat-block { padding: 56px 48px; gap: 32px; }
+      .hero-text { padding-bottom: 80px; }
     }
-    /* Cercle décoratif en arrière-plan */
-    .stat-block::after {
-      content: '';
-      position: absolute;
-      right: -80px; bottom: -80px;
-      width: 240px; height: 240px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-    }
-    .stat-block .big {
-      font-size: clamp(72px, 13vw, 140px);
-      font-weight: 900;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .stat-block .desc {
-      font-size: clamp(13px, 1.4vw, 16px);
-      font-weight: 600;
-      line-height: 1.45;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      position: relative;
-      z-index: 1;
-    }
-    .stat-block .desc strong {
-      font-weight: 900;
-      font-size: 1.1em;
-      display: block;
-      margin-top: 4px;
-    }
-
-    /* Côté texte du hero */
     .hero-text h1 {
-      font-size: clamp(26px, 3.4vw, 38px);
-      line-height: 1.2;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1.15;
       font-weight: 800;
-      margin: 0 0 20px;
-      letter-spacing: -0.02em;
+      margin: 0 0 24px;
+      letter-spacing: -0.025em;
     }
     .hero-text .lead {
-      font-size: clamp(15px, 1.6vw, 17px);
+      font-size: clamp(17px, 2vw, 22px);
       color: var(--color-text-soft);
-      margin: 0 0 28px;
-      line-height: 1.6;
+      margin: 0 0 32px;
+      line-height: 1.5;
+      font-weight: 500;
     }
     .construction {
       display: inline-flex;
@@ -267,6 +216,62 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* Bandeau stat — 80% sur aplat bleu plein largeur */
+    .stat-banner {
+      background: var(--color-blue);
+      color: #fff;
+      padding: 48px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 600px) {
+      .stat-banner { padding: 72px 0; }
+    }
+    .stat-banner::after {
+      content: '';
+      position: absolute;
+      right: -120px; top: 50%;
+      transform: translateY(-50%);
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .stat-banner .stat-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    @media (min-width: 600px) {
+      .stat-banner .stat-inner { gap: 40px; flex-wrap: nowrap; justify-content: flex-start; }
+    }
+    .stat-banner .big {
+      font-size: clamp(80px, 14vw, 160px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      flex-shrink: 0;
+    }
+    .stat-banner .desc {
+      font-size: clamp(15px, 1.6vw, 20px);
+      font-weight: 600;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      max-width: 480px;
+    }
+    .stat-banner .desc strong {
+      font-weight: 900;
+      font-size: 1.15em;
+      display: block;
+      margin-top: 4px;
     }
 
     /* ============================================================
@@ -427,28 +432,28 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="container">
-      <div class="hero-grid">
+      <div class="hero-text">
+        <h1 id="hero-title">
+          Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
+        </h1>
+        <p class="lead">
+          Démocratisons, ensemble, le diagnostic et la réparation des batteries électriques amovibles.
+        </p>
+        <p class="construction" role="note">
+          Site en construction — Pour en savoir plus, contactez-nous.
+        </p>
+      </div>
+    </div>
+  </section>
 
-        <div class="stat-block" role="img" aria-label="80 % des batteries envoyées au recyclage sont en réalité réparables">
-          <div class="big">80<span aria-hidden="true">%</span></div>
-          <div class="desc">
-            des batteries envoyées au recyclage sont en réalité
-            <strong>réparables.</strong>
-          </div>
+  <section class="stat-banner" aria-label="Chiffre clé">
+    <div class="container">
+      <div class="stat-inner">
+        <div class="big" aria-hidden="true">80%</div>
+        <div class="desc">
+          des batteries envoyées au recyclage sont en réalité
+          <strong>réparables.</strong>
         </div>
-
-        <div class="hero-text">
-          <h1 id="hero-title">
-            Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
-          </h1>
-          <p class="lead">
-            Démocratisons, ensemble, le diagnostic et la réparation des batteries électriques amovibles.
-          </p>
-          <p class="construction" role="note">
-            Site en construction — Pour en savoir plus, contactez-nous.
-          </p>
-        </div>
-
       </div>
     </div>
   </section>
