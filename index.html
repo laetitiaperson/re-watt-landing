@@ -131,22 +131,33 @@
     }
 
     /* ============================================================
-       Hero
+       Site header (barre du haut, logo aligné à gauche)
        ============================================================ */
-    .hero {
-      padding: 56px 0 40px;
-      text-align: center;
+    .site-header {
+      padding: 20px 0;
     }
     .logo {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      margin: 0 auto 32px;
     }
     .logo img {
-      max-height: 220px;
+      height: 64px;
       width: auto;
-      max-width: 100%;
+    }
+    @media (min-width: 600px) {
+      .logo img { height: 80px; }
+    }
+
+    /* ============================================================
+       Hero
+       ============================================================ */
+    .hero {
+      padding: 16px 0 48px;
+      text-align: center;
+    }
+    @media (min-width: 600px) {
+      .hero { padding: 32px 0 72px; }
     }
     /* Style appliqué uniquement si on garde le texte de fallback */
     .logo-fallback {
@@ -303,15 +314,21 @@
 
   <a href="#main" class="skip-link">Aller au contenu</a>
 
-  <header class="hero" role="banner">
+  <header class="site-header" role="banner">
     <div class="container">
-
       <div class="logo">
         <!-- LOGO_PLACEHOLDER : le logo inclut déjà la baseline « Redonnez vie à vos batteries » -->
-        <img src="logo.png" alt="Re-Watt — Redonnez vie à vos batteries">
+        <a href="/" aria-label="Re-Watt — accueil">
+          <img src="logo.png" alt="Re-Watt — Redonnez vie à vos batteries">
+        </a>
       </div>
+    </div>
+  </header>
 
-      <h1>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+
+      <h1 id="hero-title">
         <span class="highlight">80&nbsp;%</span> des batteries envoyées au recyclage sont en réalité réparables.
       </h1>
 
@@ -324,7 +341,7 @@
       </p>
 
     </div>
-  </header>
+  </section>
 
   <main id="main">
 
