@@ -37,22 +37,23 @@
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
-  <!-- Polices : Montserrat (titres) + Poppins (corps) -->
+  <!-- Police : Montserrat uniquement (alignée sur le deck partenaires) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     /* ============================================================
        Variables — tokens design (modifiable en un endroit)
        ============================================================ */
     :root {
-      /* Couleurs issues du logo Re-Watt */
-      --color-blue: #2380C5;          /* bleu du R */
-      --color-blue-dark: #1A6BA6;
-      --color-green: #57B748;         /* vert du W et du point */
-      --color-green-dark: #449A38;
-      --color-green-soft: #DCEFD5;    /* badge/halo discret */
+      /* Palette alignée sur le deck partenaires Re-Watt */
+      --color-blue: #2B82C9;          /* bleu brand */
+      --color-blue-dark: #1E6BAA;
+      --color-blue-soft: #E6F1F9;
+      --color-green: #4CAF50;         /* vert brand */
+      --color-green-dark: #3D8B40;
+      --color-green-soft: #E0F1E0;
 
       /* Alias sémantiques */
       --color-primary: var(--color-blue);
@@ -60,20 +61,22 @@
       --color-accent: var(--color-green);
       --color-accent-dark: var(--color-green-dark);
 
-      --color-bg: #FAFAF7;
-      --color-text: #1A2330;
-      --color-text-muted: #5C6470;
-      --color-border: #E6E8EC;
+      --color-bg: #FFFFFF;
+      --color-bg-soft: #F4F7F9;       /* fond cards / panneaux */
+      --color-text: #373A3C;          /* charcoal du deck */
+      --color-text-muted: #6A6F73;
+      --color-text-soft: #555A5E;
+      --color-border: #E0E4E7;
       --color-card-bg: #FFFFFF;
 
-      --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-      --radius: 12px;
-      --shadow-soft: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
-      --shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.08);
+      --radius: 14px;
+      --radius-lg: 24px;
+      --shadow-soft: 0 1px 2px rgba(55,58,60,0.04), 0 2px 8px rgba(55,58,60,0.04);
+      --shadow-hover: 0 6px 16px rgba(43,130,201,0.10), 0 18px 40px rgba(55,58,60,0.10);
 
-      --max-w: 960px;
+      --max-w: 1080px;
       --pad-x: 24px;
     }
 
@@ -84,18 +87,19 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: var(--font-body);
+      font-family: var(--font);
       font-weight: 400;
-      font-size: 17px;
-      line-height: 1.65;
+      font-size: 16px;
+      line-height: 1.6;
       color: var(--color-text);
       background: var(--color-bg);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    h1, h2, h3, .logo-fallback {
-      font-family: var(--font-display);
+    h1, h2, h3, h4 {
+      font-family: var(--font);
       letter-spacing: -0.01em;
+      color: var(--color-text);
     }
     img { max-width: 100%; height: auto; display: block; }
     a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
@@ -159,62 +163,122 @@
     }
 
     /* ============================================================
-       Hero
+       Hero — bloc stat dominant à la slide 4 du deck
        ============================================================ */
     .hero {
-      padding: 16px 0 48px;
-      text-align: center;
+      padding: 16px 0 56px;
     }
     @media (min-width: 600px) {
-      .hero { padding: 32px 0 72px; }
+      .hero { padding: 24px 0 88px; }
     }
-    /* Style appliqué uniquement si on garde le texte de fallback */
-    .logo-fallback {
-      font-weight: 800;
-      font-size: 32px;
-      color: var(--color-primary);
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
     }
-    .hero h1 {
-      font-size: clamp(28px, 5vw, 46px);
+    @media (min-width: 860px) {
+      .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 56px; }
+    }
+
+    /* Bloc stat — gros 80% blanc sur fond bleu→vert dégradé */
+    .stat-block {
+      position: relative;
+      background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-green) 100%);
+      color: #fff;
+      padding: 40px 32px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(43,130,201,0.18);
+    }
+    @media (min-width: 600px) {
+      .stat-block { padding: 56px 48px; gap: 32px; }
+    }
+    /* Cercle décoratif en arrière-plan */
+    .stat-block::after {
+      content: '';
+      position: absolute;
+      right: -80px; bottom: -80px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .stat-block .big {
+      font-size: clamp(72px, 13vw, 140px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .stat-block .desc {
+      font-size: clamp(13px, 1.4vw, 16px);
+      font-weight: 600;
+      line-height: 1.45;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 1;
+    }
+    .stat-block .desc strong {
+      font-weight: 900;
+      font-size: 1.1em;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* Côté texte du hero */
+    .hero-text h1 {
+      font-size: clamp(26px, 3.4vw, 38px);
       line-height: 1.2;
       font-weight: 800;
+      margin: 0 0 20px;
       letter-spacing: -0.02em;
-      margin: 0 auto 20px;
-      max-width: 780px;
     }
-    .hero h1 .highlight {
-      background: linear-gradient(120deg, var(--color-green) 0%, var(--color-blue) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      white-space: nowrap;
-    }
-    .hero .lead {
-      font-size: clamp(17px, 2.2vw, 20px);
-      color: var(--color-text-muted);
-      max-width: 640px;
-      margin: 0 auto 32px;
-      font-weight: 400;
+    .hero-text .lead {
+      font-size: clamp(15px, 1.6vw, 17px);
+      color: var(--color-text-soft);
+      margin: 0 0 28px;
+      line-height: 1.6;
     }
     .construction {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 10px 18px;
       background: var(--color-green-soft);
       color: var(--color-green-dark);
       border-radius: 999px;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .construction::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-green);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
 
     /* ============================================================
-       Section profils
+       Section profils — fond gris doux + badges numérotés
        ============================================================ */
     .profiles {
-      padding: 64px 0 80px;
+      padding: 72px 0 88px;
+      background: var(--color-bg-soft);
     }
     .profiles h2 {
-      font-size: clamp(26px, 3.5vw, 34px);
-      font-weight: 700;
+      font-size: clamp(26px, 3.5vw, 36px);
+      font-weight: 800;
       text-align: center;
       margin: 0 0 8px;
     }
@@ -223,6 +287,7 @@
       color: var(--color-text-muted);
       margin: 0 auto 48px;
       max-width: 560px;
+      font-size: 15px;
     }
 
     .profile-grid {
@@ -238,10 +303,11 @@
     }
 
     .profile-card {
+      position: relative;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 28px 24px;
+      gap: 14px;
+      padding: 32px 24px 28px;
       background: var(--color-card-bg);
       border: 1px solid var(--color-border);
       border-radius: var(--radius);
@@ -249,49 +315,74 @@
       text-decoration: none;
       color: var(--color-text);
       transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      overflow: hidden;
     }
     .profile-card:hover,
     .profile-card:focus-visible {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       box-shadow: var(--shadow-hover);
-      border-color: var(--color-accent);
       color: var(--color-text);
     }
-    .profile-card .icon {
-      width: 38px;
-      height: 38px;
-      color: var(--color-primary);
-      flex-shrink: 0;
+    /* Liseré coloré en haut de la carte */
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--card-color, var(--color-primary));
     }
-    /* Variation : alterne bleu / vert pour un rappel visuel du logo */
-    .profile-card:nth-child(2n) .icon { color: var(--color-accent-dark); }
+
+    /* Badge numéroté "01" "02" "03" "04" */
+    .profile-card .badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--card-color, var(--color-primary));
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 10px color-mix(in srgb, var(--card-color, var(--color-primary)) 30%, transparent);
+    }
+
+    /* Alternance bleu/vert/bleu/vert (motif récurrent du deck) */
+    .profile-card:nth-child(1) { --card-color: var(--color-blue); }
+    .profile-card:nth-child(2) { --card-color: var(--color-green); }
+    .profile-card:nth-child(3) { --card-color: var(--color-blue); }
+    .profile-card:nth-child(4) { --card-color: var(--color-green); }
+
     .profile-card h3 {
       margin: 0;
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 700;
+      color: var(--color-text);
     }
     .profile-card p {
       margin: 0;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--color-text-muted);
       line-height: 1.55;
     }
     .profile-card .cta {
       margin-top: auto;
-      padding-top: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-primary);
+      padding-top: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--card-color, var(--color-primary));
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
-    .profile-card:hover .cta { color: var(--color-primary-dark); }
     .profile-card .cta::after {
       content: '→';
       transition: transform 180ms ease;
     }
-    .profile-card:hover .cta::after { transform: translateX(3px); }
+    .profile-card:hover .cta::after { transform: translateX(4px); }
 
     /* ============================================================
        Footer
@@ -336,19 +427,29 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <div class="container">
+      <div class="hero-grid">
 
-      <h1 id="hero-title">
-        <span class="highlight">80&nbsp;%</span> des batteries envoyées au recyclage sont en réalité réparables.
-      </h1>
+        <div class="stat-block" role="img" aria-label="80 % des batteries envoyées au recyclage sont en réalité réparables">
+          <div class="big">80<span aria-hidden="true">%</span></div>
+          <div class="desc">
+            des batteries envoyées au recyclage sont en réalité
+            <strong>réparables.</strong>
+          </div>
+        </div>
 
-      <p class="lead">
-        Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
-      </p>
+        <div class="hero-text">
+          <h1 id="hero-title">
+            Re-Watt prolonge la durée de vie des batteries électriques amovibles, près de chez vous.
+          </h1>
+          <p class="lead">
+            Démocratisons, ensemble, le diagnostic et la réparation des batteries électriques amovibles.
+          </p>
+          <p class="construction" role="note">
+            Site en construction — Pour en savoir plus, contactez-nous.
+          </p>
+        </div>
 
-      <p class="construction" role="note">
-        Site en construction — Pour en savoir plus, contactez-nous.
-      </p>
-
+      </div>
     </div>
   </section>
 
@@ -367,10 +468,7 @@
              href="#"
              data-subject="Re-Watt — Demande Particulier"
              data-body="Bonjour,%0A%0AJe souhaite en savoir plus sur vos services pour particuliers. Ma demande concerne : ...%0A%0AMerci,">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="8" r="4"/>
-              <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
-            </svg>
+            <span class="badge" aria-hidden="true">01</span>
             <h3>Particulier</h3>
             <p>Vous voulez faire diagnostiquer ou réparer la batterie de votre vélo, scooter, trottinette ou outil portatif.</p>
             <span class="cta">Nous contacter</span>
@@ -381,13 +479,7 @@
              href="#"
              data-subject="Re-Watt — Demande Professionnel"
              data-body="Bonjour,%0A%0AJe représente la structure ... et je souhaite échanger sur ...%0A%0AMerci,">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 21h18"/>
-              <path d="M5 21V7l7-4 7 4v14"/>
-              <path d="M9 9h2"/><path d="M13 9h2"/>
-              <path d="M9 13h2"/><path d="M13 13h2"/>
-              <path d="M9 17h2"/><path d="M13 17h2"/>
-            </svg>
+            <span class="badge" aria-hidden="true">02</span>
             <h3>Professionnel</h3>
             <p>Vous gérez une flotte, un atelier ou une activité qui dépend de batteries amovibles.</p>
             <span class="cta">Nous contacter</span>
@@ -398,10 +490,7 @@
              href="#"
              data-subject="Re-Watt — Demande Partenaire"
              data-body="Bonjour,%0A%0AJe suis intéressé(e) pour rejoindre votre réseau d'ateliers de réparation/reconditionnement. ...%0A%0AMerci,">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14.7 6.3a4 4 0 0 1 5.6 5.7l-7.3 7.3a4 4 0 0 1-5.7 0l-3.3-3.3a4 4 0 0 1 0-5.7l7.3-7.3a4 4 0 0 1 5.7 0"/>
-              <path d="M9 12l2 2 4-4"/>
-            </svg>
+            <span class="badge" aria-hidden="true">03</span>
             <h3>Partenaire</h3>
             <p>Vous souhaitez rejoindre notre réseau d'ateliers de réparation et de reconditionnement.</p>
             <span class="cta">Nous contacter</span>
@@ -412,11 +501,7 @@
              href="#"
              data-subject="Re-Watt — Demande Écosystème"
              data-body="Bonjour,%0A%0AJe suis (investisseur / journaliste / institutionnel) et je souhaite ...%0A%0AMerci,">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
+            <span class="badge" aria-hidden="true">04</span>
             <h3>Écosystème</h3>
             <p>Vous êtes investisseur, institutionnel, journaliste ou acteur de la transition écologique.</p>
             <span class="cta">Nous contacter</span>
